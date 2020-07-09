@@ -1,0 +1,42 @@
+{
+    "name": "inspiredminds/contao-language-autoswitch",
+    "description": "Contao extension to automatically switches page, archives and calendars references in modules according to the current language.",
+    "type": "contao-bundle",
+    "license": "LGPL-3.0-or-later",
+    "homepage": "https://github.com/inspiredminds/contao-language-autoswitch",
+    "authors": [
+        {
+            "name": "Fritz Michael Gschwantner",
+            "email": "fmg@inspiredminds.at",
+            "role": "Developer"
+        }
+    ],
+	"support": {
+		"issues": "https://github.com/inspiredminds/contao-remember-language/issues",
+		"source": "https://github.com/inspiredminds/contao-remember-language",
+		"forum": "https://community.contao.org/de"
+	},
+	"funding": [
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/fritzmg"
+        }
+    ],
+    "require": {
+        "php": ">=7.1",
+        "contao/core-bundle": "^4.4",
+        "symfony/http-kernel": "^4.4",
+        "terminal42/contao-changelanguage": "^3.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "InspiredMinds\\ContaoLanguageAutoswitch\\": "src/"
+        }
+    },
+    "extra": {
+        "contao-manager-plugin": "InspiredMinds\\ContaoLanguageAutoswitch\\ContaoManager\\Plugin"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.16"
+    }
+}
