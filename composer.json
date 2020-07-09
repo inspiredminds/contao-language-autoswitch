@@ -1,6 +1,6 @@
 {
     "name": "inspiredminds/contao-language-autoswitch",
-    "description": "Contao extension to automatically switches page, archives and calendars references in modules according to the current language.",
+    "description": "Contao extension to automatically switch page, archive and calendar references in modules according to the current language.",
     "type": "contao-bundle",
     "license": "LGPL-3.0-or-later",
     "homepage": "https://github.com/inspiredminds/contao-language-autoswitch",
