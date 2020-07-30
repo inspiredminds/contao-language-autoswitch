@@ -27,4 +27,13 @@ if (class_exists(NewsCategoriesNewsListModule::class)) {
 class NewsListModule extends ParentNewsListModule
 {
     use NewsModuleTrait;
+    use JumpToTrait;
+
+    public function generate()
+    {
+        $this->switchNewsArchives();
+        $this->switchJumpTo();
+
+        return parent::generate();
+    }
 }

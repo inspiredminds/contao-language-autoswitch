@@ -19,16 +19,16 @@ use Terminal42\ChangeLanguage\PageFinder;
 
 trait NewsModuleTrait
 {
-    public function generate()
+    public function switchNewsArchives(): void
     {
         if (TL_MODE === 'BE') {
-            return parent::generate();
+            return;
         }
 
         $archives = StringUtil::deserialize($this->news_archives, true);
 
         if (empty($archives)) {
-            return parent::generate();
+            return;
         }
 
         // get the current language
@@ -77,7 +77,5 @@ trait NewsModuleTrait
         }
 
         $this->news_archives = serialize(array_unique(array_filter($archives)));
-
-        return parent::generate();
     }
 }

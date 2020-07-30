@@ -15,4 +15,13 @@ namespace InspiredMinds\ContaoLanguageAutoswitch\Module;
 class CalendarModule extends \Contao\ModuleCalendar
 {
     use EventModuleTrait;
+    use JumpToTrait;
+
+    public function generate()
+    {
+        $this->switchCalendars();
+        $this->switchJumpTo();
+
+        return parent::generate();
+    }
 }

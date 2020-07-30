@@ -19,10 +19,10 @@ use Terminal42\ChangeLanguage\PageFinder;
 
 trait EventModuleTrait
 {
-    public function generate()
+    public function switchCalendars(): void
     {
         if (TL_MODE === 'BE') {
-            return parent::generate();
+            return;
         }
 
         $calendars = StringUtil::deserialize($this->cal_calendar, true);
@@ -77,7 +77,5 @@ trait EventModuleTrait
         }
 
         $this->cal_calendar = serialize(array_unique(array_filter($calendars)));
-
-        return parent::generate();
     }
 }

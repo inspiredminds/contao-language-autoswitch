@@ -17,10 +17,10 @@ use Terminal42\ChangeLanguage\PageFinder;
 
 trait JumpToTrait
 {
-    public function generate()
+    public function switchJumpTo(): void
     {
         if (TL_MODE === 'BE' || !$this->jumpTo) {
-            return parent::generate();
+            return;
         }
 
         // get the current language
@@ -34,7 +34,7 @@ trait JumpToTrait
 
         // Check if target page is not in the current language
         if (null === $target || $target->rootLanguage === $currentLang) {
-            return parent::generate();
+            return;
         }
 
         // get associated page for language
@@ -42,7 +42,5 @@ trait JumpToTrait
             $this->objModel->jumpTo = $otherPage->id;
             $this->jumpTo = $otherPage->id;
         }
-
-        return parent::generate();
     }
 }

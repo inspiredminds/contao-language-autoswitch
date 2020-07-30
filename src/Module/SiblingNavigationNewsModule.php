@@ -17,4 +17,13 @@ use InspiredMinds\ContaoSiblingNavigation\Module\SiblingNavigationNews;
 class SiblingNavigationNewsModule extends SiblingNavigationNews
 {
     use NewsModuleTrait;
+    use JumpToTrait;
+
+    public function generate()
+    {
+        $this->switchNewsArchives();
+        $this->switchJumpTo();
+
+        return parent::generate();
+    }
 }

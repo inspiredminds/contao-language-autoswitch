@@ -15,4 +15,13 @@ namespace InspiredMinds\ContaoLanguageAutoswitch\Module;
 class CumulativeFilterModule extends \Codefog\NewsCategoriesBundle\FrontendModule\CumulativeFilterModule
 {
     use NewsModuleTrait;
+    use JumpToTrait;
+
+    public function generate()
+    {
+        $this->switchNewsArchives();
+        $this->switchJumpTo();
+
+        return parent::generate();
+    }
 }

@@ -15,4 +15,11 @@ namespace InspiredMinds\ContaoLanguageAutoswitch\Module;
 class NewsReaderModule extends \Contao\ModuleNewsReader
 {
     use NewsModuleTrait;
+
+    public function generate()
+    {
+        $this->switchNewsArchives();
+
+        return parent::generate();
+    }
 }

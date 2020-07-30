@@ -14,6 +14,7 @@ use InspiredMinds\ContaoLanguageAutoswitch\Module\CalendarModule;
 use InspiredMinds\ContaoLanguageAutoswitch\Module\CumulativeFilterModule;
 use InspiredMinds\ContaoLanguageAutoswitch\Module\CustomnavModule;
 use InspiredMinds\ContaoLanguageAutoswitch\Module\EventListModule;
+use InspiredMinds\ContaoLanguageAutoswitch\Module\EventReaderModule;
 use InspiredMinds\ContaoLanguageAutoswitch\Module\NavigationModule;
 use InspiredMinds\ContaoLanguageAutoswitch\Module\NewsCategoriesModule;
 use InspiredMinds\ContaoLanguageAutoswitch\Module\NewsListModule;
@@ -36,6 +37,10 @@ if (isset($GLOBALS['FE_MOD']['news']['newsreader'])) {
 
 if (isset($GLOBALS['FE_MOD']['events']['calendar'])) {
     $GLOBALS['FE_MOD']['events']['calendar'] = CalendarModule::class;
+}
+
+if (isset($GLOBALS['FE_MOD']['events']['eventreader'])) {
+    $GLOBALS['FE_MOD']['events']['calendar'] = EventReaderModule::class;
 }
 
 if (isset($GLOBALS['FE_MOD']['events']['eventlist'])) {

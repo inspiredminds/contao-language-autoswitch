@@ -15,4 +15,11 @@ namespace InspiredMinds\ContaoLanguageAutoswitch\Module;
 class SearchModule extends \Contao\ModuleSearch
 {
     use JumpToTrait;
+
+    public function generate()
+    {
+        $this->switchJumpTo();
+
+        return parent::generate();
+    }
 }

@@ -12,15 +12,13 @@ declare(strict_types=1);
 
 namespace InspiredMinds\ContaoLanguageAutoswitch\Module;
 
-class NewsCategoriesModule extends \Codefog\NewsCategoriesBundle\FrontendModule\NewsCategoriesModule
+class EventReaderModule extends \Contao\ModuleEventReader
 {
-    use NewsModuleTrait;
-    use JumpToTrait;
+    use EventModuleTrait;
 
     public function generate()
     {
-        $this->switchNewsArchives();
-        $this->switchJumpTo();
+        $this->switchCalendars();
 
         return parent::generate();
     }
