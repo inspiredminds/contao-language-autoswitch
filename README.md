@@ -14,6 +14,7 @@ The following modules are supported:
 * `Contao\ModuleCalendar`
 * `Contao\ModuleCustomnav`
 * `Contao\ModuleEventlist`
+* `Contao\ModuleEventReader`
 * `Contao\ModuleNavigation`
 * `Contao\ModuleNewsList`
 * `Contao\ModuleNewsReader`
