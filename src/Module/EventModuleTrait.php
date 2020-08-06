@@ -28,7 +28,7 @@ trait EventModuleTrait
         $calendars = StringUtil::deserialize($this->cal_calendar, true);
 
         if (empty($calendars)) {
-            return parent::generate();
+            return;
         }
 
         // get the current language
