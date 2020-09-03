@@ -78,7 +78,7 @@ trait EventModuleTrait
                 }
 
                 // Check if the target page language is the language we search for
-                if ($target->rootLanguage === $currentLang) {
+                if ($otherPage->rootLanguage === $currentLang) {
                     $calendarId = $otherCalendar->id;
                     break;
                 }

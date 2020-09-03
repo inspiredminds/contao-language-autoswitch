@@ -78,7 +78,7 @@ trait NewsModuleTrait
                 }
 
                 // Check if the target page language is the language we search for
-                if ($target->rootLanguage === $currentLang) {
+                if ($otherPage->rootLanguage === $currentLang) {
                     $archiveId = $otherArchive->id;
                     break;
                 }
