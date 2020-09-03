@@ -54,25 +54,34 @@ trait EventModuleTrait
                 continue;
             }
 
-            // find the target page in the other language
-            $otherPage = $pageFinder->findAssociatedForLanguage($target, $currentLang);
+            // Get all suitable calendars. We search for either the master, if
+            // present, or the current ID (which means this is the master) and
+            // we skip the current calendar.
+            $searchId = (int) ($calendar->master ?: $calendar->id);
+            $t = CalendarModel::getTable();
+            $otherCalendars = CalendarModel::findBy(
+                ["($t.id = ? OR $t.master = ?)", "$t.id != ?"],
+                [$searchId, $searchId, (int) $calendar->id]
+            );
 
-            if (null === $otherPage) {
+            // Check if calendars have been found
+            if (null === $otherCalendars) {
                 continue;
             }
 
-            // find the other calendar
-            $t = CalendarModel::getTable();
-            $otherCalendar = CalendarModel::findBy([
-                "$t.jumpTo = ?",
-                "($t.master = ? OR $t.master = '0')",
-            ], [
-                $otherPage->id,
-                0 !== (int) $calendar->master ? (int) $calendar->master : (int) $calendar->id,
-            ]);
+            // Go through all calendars
+            foreach ($otherCalendars as $otherCalendar) {
+                $otherPage = PageModel::findWithDetails($otherCalendar->jumpTo);
 
-            if (null !== $otherCalendar) {
-                $calendarId = $otherCalendar->id;
+                if (null === $otherPage) {
+                    continue;
+                }
+
+                // Check if the target page language is the language we search for
+                if ($target->rootLanguage === $currentLang) {
+                    $calendarId = $otherCalendar->id;
+                    break;
+                }
             }
         }
 

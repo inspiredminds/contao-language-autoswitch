@@ -54,25 +54,34 @@ trait NewsModuleTrait
                 continue;
             }
 
-            // find the target page in the other language
-            $otherPage = $pageFinder->findAssociatedForLanguage($target, $currentLang);
+            // Get all suitable archives. We search for either the master, if
+            // present, or the current ID (which means this is the master) and
+            // we skip the current archive.
+            $searchId = (int) ($archive->master ?: $archive->id);
+            $t = NewsArchiveModel::getTable();
+            $otherArchives = NewsArchiveModel::findBy(
+                ["($t.id = ? OR $t.master = ?)", "$t.id != ?"],
+                [$searchId, $searchId, (int) $archive->id]
+            );
 
-            if (null === $otherPage) {
+            // Check if archives have been found
+            if (null === $otherArchives) {
                 continue;
             }
 
-            // find the other archive
-            $t = NewsArchiveModel::getTable();
-            $otherArchive = NewsArchiveModel::findBy([
-                "$t.jumpTo = ?",
-                "($t.master = ? OR $t.master = '0')",
-            ], [
-                $otherPage->id,
-                0 !== (int) $archive->master ? (int) $archive->master : (int) $archive->id,
-            ]);
+            // Go through all archives
+            foreach ($otherArchives as $otherArchive) {
+                $otherPage = PageModel::findWithDetails($otherArchive->jumpTo);
 
-            if (null !== $otherArchive) {
-                $archiveId = $otherArchive->id;
+                if (null === $otherPage) {
+                    continue;
+                }
+
+                // Check if the target page language is the language we search for
+                if ($target->rootLanguage === $currentLang) {
+                    $archiveId = $otherArchive->id;
+                    break;
+                }
             }
         }
 
