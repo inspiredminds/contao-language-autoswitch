@@ -4,7 +4,7 @@
 Automatic Language Switcher for Contao Modules
 ==============================================
 
-This extension extends and replaces some common Contao front end modules and automatically switches page, archive and calendar references according to the current language.
+This extension extends and replaces some common Contao front end modules and automatically switches page, archive and calendar references according to the current language. This enables you to only create one module for your multi language Contao instance and include that directly in your layout or page, instead of having to create one module for each language.
 
 The following modules are supported:
 
