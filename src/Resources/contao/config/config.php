@@ -40,7 +40,7 @@ if (isset($GLOBALS['FE_MOD']['events']['calendar'])) {
 }
 
 if (isset($GLOBALS['FE_MOD']['events']['eventreader'])) {
-    $GLOBALS['FE_MOD']['events']['calendar'] = EventReaderModule::class;
+    $GLOBALS['FE_MOD']['events']['eventreader'] = EventReaderModule::class;
 }
 
 if (isset($GLOBALS['FE_MOD']['events']['eventlist'])) {
