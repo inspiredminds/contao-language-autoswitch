@@ -25,7 +25,7 @@
     "require": {
         "php": ">=7.1",
         "contao/core-bundle": "^4.4",
-        "symfony/http-kernel": "^4.4",
+        "symfony/http-kernel": "^4.4 || ^5.1",
         "terminal42/contao-changelanguage": "^3.1"
     },
     "autoload": {
