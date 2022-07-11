@@ -14,6 +14,7 @@ namespace InspiredMinds\ContaoLanguageAutoswitch\ContaoManager;
 
 use Codefog\NewsCategoriesBundle\CodefogNewsCategoriesBundle;
 use Contao\CalendarBundle\ContaoCalendarBundle;
+use Contao\CoreBundle\ContaoCoreBundle;
 use Contao\ManagerPlugin\Bundle\BundlePluginInterface;
 use Contao\ManagerPlugin\Bundle\Config\BundleConfig;
 use Contao\ManagerPlugin\Bundle\Parser\ParserInterface;
@@ -28,6 +29,7 @@ class Plugin implements BundlePluginInterface
         return [
             BundleConfig::create(ContaoLanguageAutoswitch::class)
                 ->setLoadAfter([
+                    ContaoCoreBundle::class,
                     ContaoNewsBundle::class,
                     ContaoCalendarBundle::class,
                     CodefogNewsCategoriesBundle::class,
