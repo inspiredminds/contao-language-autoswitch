@@ -16,8 +16,8 @@ use InspiredMinds\ContaoSiblingNavigation\Module\SiblingNavigationNews;
 
 class SiblingNavigationNewsModule extends SiblingNavigationNews
 {
-    use NewsModuleTrait;
     use JumpToTrait;
+    use NewsModuleTrait;
 
     public function generate()
     {

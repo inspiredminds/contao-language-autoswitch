@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace InspiredMinds\ContaoLanguageAutoswitch\Module;
 
+use Contao\CoreBundle\Util\LocaleUtil;
 use Contao\ModuleNavigation;
 use Contao\PageModel;
 use Terminal42\ChangeLanguage\PageFinder;
@@ -26,6 +27,10 @@ class NavigationModule extends ModuleNavigation
 
         $rootPage = PageModel::findWithDetails($this->rootPage);
         $currentLang = $GLOBALS['TL_LANGUAGE'];
+
+        if (class_exists(LocaleUtil::class)) {
+            $currentLang = LocaleUtil::canonicalize($GLOBALS['TL_LANGUAGE']);
+        }
 
         if (null === $rootPage || $rootPage->rootLanguage === $currentLang) {
             return parent::generate();

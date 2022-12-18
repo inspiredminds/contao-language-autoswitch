@@ -12,10 +12,10 @@ declare(strict_types=1);
 
 namespace InspiredMinds\ContaoLanguageAutoswitch\Module;
 
+use Contao\CoreBundle\Util\LocaleUtil;
 use Contao\NewsArchiveModel;
 use Contao\PageModel;
 use Contao\StringUtil;
-use Terminal42\ChangeLanguage\PageFinder;
 
 trait NewsModuleTrait
 {
@@ -34,8 +34,9 @@ trait NewsModuleTrait
         // get the current language
         $currentLang = $GLOBALS['TL_LANGUAGE'];
 
-        // get the page finder
-        $pageFinder = new PageFinder();
+        if (class_exists(LocaleUtil::class)) {
+            $currentLang = LocaleUtil::canonicalize($GLOBALS['TL_LANGUAGE']);
+        }
 
         // go through each archive
         foreach ($archives as &$archiveId) {

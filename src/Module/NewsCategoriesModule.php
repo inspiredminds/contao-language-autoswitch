@@ -14,8 +14,8 @@ namespace InspiredMinds\ContaoLanguageAutoswitch\Module;
 
 class NewsCategoriesModule extends \Codefog\NewsCategoriesBundle\FrontendModule\NewsCategoriesModule
 {
-    use NewsModuleTrait;
     use JumpToTrait;
+    use NewsModuleTrait;
 
     public function generate()
     {

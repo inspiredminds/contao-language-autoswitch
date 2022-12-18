@@ -26,8 +26,8 @@ if (class_exists(NewsCategoriesNewsListModule::class)) {
 
 class NewsListModule extends ParentNewsListModule
 {
-    use NewsModuleTrait;
     use JumpToTrait;
+    use NewsModuleTrait;
 
     public function generate()
     {

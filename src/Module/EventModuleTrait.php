@@ -13,9 +13,9 @@ declare(strict_types=1);
 namespace InspiredMinds\ContaoLanguageAutoswitch\Module;
 
 use Contao\CalendarModel;
+use Contao\CoreBundle\Util\LocaleUtil;
 use Contao\PageModel;
 use Contao\StringUtil;
-use Terminal42\ChangeLanguage\PageFinder;
 
 trait EventModuleTrait
 {
@@ -34,8 +34,9 @@ trait EventModuleTrait
         // get the current language
         $currentLang = $GLOBALS['TL_LANGUAGE'];
 
-        // get the page finder
-        $pageFinder = new PageFinder();
+        if (class_exists(LocaleUtil::class)) {
+            $currentLang = LocaleUtil::canonicalize($GLOBALS['TL_LANGUAGE']);
+        }
 
         // go through each calendar
         foreach ($calendars as &$calendarId) {
