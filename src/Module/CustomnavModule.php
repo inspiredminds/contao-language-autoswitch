@@ -17,9 +17,11 @@ use Contao\StringUtil;
 
 class CustomnavModule extends \Contao\ModuleCustomnav
 {
+    use ScopeTrait;
+
     public function generate()
     {
-        if (TL_MODE === 'BE') {
+        if (!$this->isFrontendScope()) {
             return parent::generate();
         }
 

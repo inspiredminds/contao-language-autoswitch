@@ -19,9 +19,11 @@ use Contao\StringUtil;
 
 trait EventModuleTrait
 {
+    use ScopeTrait;
+
     public function switchCalendars(): void
     {
-        if (TL_MODE === 'BE') {
+        if (!$this->isFrontendScope()) {
             return;
         }
 

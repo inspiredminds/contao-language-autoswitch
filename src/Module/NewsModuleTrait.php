@@ -19,9 +19,11 @@ use Contao\StringUtil;
 
 trait NewsModuleTrait
 {
+    use ScopeTrait;
+
     public function switchNewsArchives(): void
     {
-        if (TL_MODE === 'BE') {
+        if (!$this->isFrontendScope()) {
             return;
         }
 

@@ -19,9 +19,11 @@ use Terminal42\ChangeLanguage\PageFinder;
 
 class NavigationModule extends ModuleNavigation
 {
+    use ScopeTrait;
+
     public function generate()
     {
-        if (TL_MODE === 'BE' || !$this->defineRoot || 0 === (int) $this->rootPage) {
+        if (!$this->isFrontendScope() || !$this->defineRoot || 0 === (int) $this->rootPage) {
             return parent::generate();
         }
 

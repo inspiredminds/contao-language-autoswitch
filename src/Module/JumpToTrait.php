@@ -18,9 +18,11 @@ use Terminal42\ChangeLanguage\PageFinder;
 
 trait JumpToTrait
 {
+    use ScopeTrait;
+
     public function switchJumpTo(): void
     {
-        if (TL_MODE === 'BE' || !$this->jumpTo) {
+        if (!$this->isFrontendScope() || !$this->jumpTo) {
             return;
         }
 
