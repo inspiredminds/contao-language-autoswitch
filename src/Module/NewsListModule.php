@@ -3,23 +3,20 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the Automatic Language Switching Contao extension.
- *
- * (c) inspiredminds
- *
- * @license LGPL-3.0-or-later
+ * (c) INSPIRED MINDS
  */
 
 namespace InspiredMinds\ContaoLanguageAutoswitch\Module;
 
 use Codefog\NewsCategoriesBundle\FrontendModule\NewsListModule as NewsCategoriesNewsListModule;
+use Contao\ModuleNewsList;
 
 if (class_exists(NewsCategoriesNewsListModule::class)) {
     class ParentNewsListModule extends NewsCategoriesNewsListModule
     {
     }
 } else {
-    class ParentNewsListModule extends \Contao\ModuleNewsList
+    class ParentNewsListModule extends ModuleNewsList
     {
     }
 }

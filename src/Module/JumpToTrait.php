@@ -3,11 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the Automatic Language Switching Contao extension.
- *
- * (c) inspiredminds
- *
- * @license LGPL-3.0-or-later
+ * (c) INSPIRED MINDS
  */
 
 namespace InspiredMinds\ContaoLanguageAutoswitch\Module;
@@ -20,9 +16,9 @@ trait JumpToTrait
 {
     use ScopeTrait;
 
-    public function switchJumpTo(): void
+    public function switchJumpTo(string $field = 'jumpTo'): void
     {
-        if (!$this->isFrontendScope() || !$this->jumpTo) {
+        if (!$this->isFrontendScope() || !$this->{$field}) {
             return;
         }
 
@@ -37,7 +33,7 @@ trait JumpToTrait
         $pageFinder = new PageFinder();
 
         // get the target page
-        $target = PageModel::findWithDetails($this->jumpTo);
+        $target = PageModel::findWithDetails($this->{$field});
 
         // Check if target page is not in the current language
         if (null === $target || $target->rootLanguage === $currentLang) {
@@ -45,9 +41,9 @@ trait JumpToTrait
         }
 
         // get associated page for language
-        if (null !== ($otherPage = $pageFinder->findAssociatedForLanguage($target, $currentLang))) {
-            $this->objModel->jumpTo = $otherPage->id;
-            $this->jumpTo = $otherPage->id;
+        if ($otherPage = $pageFinder->findAssociatedForLanguage($target, $currentLang)) {
+            $this->objModel->{$field} = $otherPage->id;
+            $this->{$field} = $otherPage->id;
         }
     }
 }

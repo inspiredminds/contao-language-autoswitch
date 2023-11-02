@@ -3,19 +3,17 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the Automatic Language Switching Contao extension.
- *
- * (c) inspiredminds
- *
- * @license LGPL-3.0-or-later
+ * (c) INSPIRED MINDS
  */
 
 namespace InspiredMinds\ContaoLanguageAutoswitch\Module;
 
+use Contao\ModuleCustomnav;
 use Contao\PageModel;
 use Contao\StringUtil;
+use Terminal42\ChangeLanguage\PageFinder;
 
-class CustomnavModule extends \Contao\ModuleCustomnav
+class CustomnavModule extends ModuleCustomnav
 {
     use ScopeTrait;
 
@@ -31,7 +29,7 @@ class CustomnavModule extends \Contao\ModuleCustomnav
         $currentLang = $GLOBALS['TL_LANGUAGE'];
 
         // get the page finder
-        $pageFinder = new \Terminal42\ChangeLanguage\PageFinder();
+        $pageFinder = new PageFinder();
 
         foreach ($pages as &$pageId) {
             // load the page
@@ -43,7 +41,7 @@ class CustomnavModule extends \Contao\ModuleCustomnav
             }
 
             // find pendant in current language
-            if (null !== ($otherPage = $pageFinder->findAssociatedForLanguage($page, $currentLang))) {
+            if ($otherPage = $pageFinder->findAssociatedForLanguage($page, $currentLang)) {
                 $pageId = $otherPage->id;
             }
         }
