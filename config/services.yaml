@@ -1,4 +1,5 @@
 services:
     InspiredMinds\ContaoLanguageAutoswitch\NewsCategoriesManager:
         decorates: codefog_news_categories.manager
+        decoration_on_invalid: ignore
         autowire: true
