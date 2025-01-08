@@ -11,6 +11,7 @@ namespace InspiredMinds\ContaoLanguageAutoswitch;
 use Codefog\NewsCategoriesBundle\Model\NewsCategoryModel;
 use Codefog\NewsCategoriesBundle\NewsCategoriesManager as NewsCategoriesBundleNewsCategoriesManager;
 use Contao\CoreBundle\Framework\ContaoFramework;
+use Contao\PageModel;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Terminal42\ChangeLanguage\PageFinder;
 
@@ -23,7 +24,7 @@ class NewsCategoriesManager extends NewsCategoriesBundleNewsCategoriesManager
     ) {
     }
 
-    public function getTargetPage(NewsCategoryModel $category)
+    public function getTargetPage(NewsCategoryModel $category): PageModel|null
     {
         if (!$targetPage = parent::getTargetPage($category)) {
             return $targetPage;
