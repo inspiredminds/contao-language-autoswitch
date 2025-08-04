@@ -30,11 +30,7 @@ trait NewsModuleTrait
         }
 
         // get the current language
-        $currentLang = $GLOBALS['TL_LANGUAGE'];
-
-        if (class_exists(LocaleUtil::class)) {
-            $currentLang = LocaleUtil::canonicalize($GLOBALS['TL_LANGUAGE']);
-        }
+        $currentLang = LocaleUtil::canonicalize($GLOBALS['TL_LANGUAGE']);
 
         // go through each archive
         foreach ($archives as &$archiveId) {
@@ -60,7 +56,7 @@ trait NewsModuleTrait
             $t = NewsArchiveModel::getTable();
             $otherArchives = NewsArchiveModel::findBy(
                 ["($t.id = ? OR $t.master = ?)", "$t.id != ?"],
-                [$searchId, $searchId, (int) $archive->id]
+                [$searchId, $searchId, (int) $archive->id],
             );
 
             // Check if archives have been found

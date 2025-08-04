@@ -23,9 +23,9 @@
         }
     ],
     "require": {
-        "php": ">=8.1",
-        "contao/core-bundle": "^4.9 || ^5.0",
-        "symfony/http-kernel": "^4.4 || ^5.1 || ^6.0",
+        "php": ">=8.2",
+        "contao/core-bundle": "^4.13 || ^5.0",
+        "symfony/http-kernel": "^5.4 || ^6.4 || ^7.3",
         "terminal42/contao-changelanguage": "^3.1"
     },
     "autoload": {
@@ -37,7 +37,7 @@
         "contao-manager-plugin": "InspiredMinds\\ContaoLanguageAutoswitch\\ContaoManager\\Plugin"
     },
     "require-dev": {
-        "contao/easy-coding-standard": "^5.0",
+        "contao/easy-coding-standard": "^6.0",
         "contao/rector": "^1.0"
     },
     "config": {

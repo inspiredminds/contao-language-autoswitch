@@ -23,11 +23,7 @@ trait JumpToTrait
         }
 
         // get the current language
-        $currentLang = $GLOBALS['TL_LANGUAGE'];
-
-        if (class_exists(LocaleUtil::class)) {
-            $currentLang = LocaleUtil::canonicalize($GLOBALS['TL_LANGUAGE']);
-        }
+        $currentLang = LocaleUtil::canonicalize($GLOBALS['TL_LANGUAGE']);
 
         // get the page finder
         $pageFinder = new PageFinder();

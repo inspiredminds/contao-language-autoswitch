@@ -24,11 +24,7 @@ class NavigationModule extends ModuleNavigation
         }
 
         $rootPage = PageModel::findWithDetails($this->rootPage);
-        $currentLang = $GLOBALS['TL_LANGUAGE'];
-
-        if (class_exists(LocaleUtil::class)) {
-            $currentLang = LocaleUtil::canonicalize($GLOBALS['TL_LANGUAGE']);
-        }
+        $currentLang = LocaleUtil::canonicalize($GLOBALS['TL_LANGUAGE']);
 
         if (null === $rootPage || $rootPage->rootLanguage === $currentLang) {
             return parent::generate();

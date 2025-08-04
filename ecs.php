@@ -2,25 +2,24 @@
 
 declare(strict_types=1);
 
+use Contao\EasyCodingStandard\Fixer\CommentLengthFixer;
+use Contao\EasyCodingStandard\Set\SetList;
 use PhpCsFixer\Fixer\Comment\HeaderCommentFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
-use Symplify\EasyCodingStandard\ValueObject\Option;
 
-return static function (ECSConfig $ecsConfig): void {
-    $ecsConfig->sets([__DIR__.'/vendor/contao/easy-coding-standard/config/contao.php']);
-
-    $ecsConfig->paths([
-        __DIR__.'/src',
+return ECSConfig::configure()
+    ->withSets([SetList::CONTAO])
+    ->withPaths([
         __DIR__.'/contao',
-    ]);
-
-    $ecsConfig->ruleWithConfiguration(HeaderCommentFixer::class, [
-        'header' => '(c) INSPIRED MINDS',
-    ]);
-
-    $ecsConfig->parallel();
-    $ecsConfig->lineEnding("\n");
-
-    $parameters = $ecsConfig->parameters();
-    $parameters->set(Option::CACHE_DIRECTORY, sys_get_temp_dir().'/ecs_default_cache');
-};
+        __DIR__.'/src',
+    ])
+    ->withSkip([
+        CommentLengthFixer::class,
+    ])
+    ->withConfiguredRule(HeaderCommentFixer::class, [
+        'header' => "(c) INSPIRED MINDS",
+    ])
+    ->withParallel()
+    ->withSpacing(lineEnding: "\n")
+    ->withCache(sys_get_temp_dir().'/ecs_default_cache')
+;

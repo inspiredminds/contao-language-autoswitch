@@ -30,11 +30,7 @@ trait EventModuleTrait
         }
 
         // get the current language
-        $currentLang = $GLOBALS['TL_LANGUAGE'];
-
-        if (class_exists(LocaleUtil::class)) {
-            $currentLang = LocaleUtil::canonicalize($GLOBALS['TL_LANGUAGE']);
-        }
+        $currentLang = LocaleUtil::canonicalize($GLOBALS['TL_LANGUAGE']);
 
         // go through each calendar
         foreach ($calendars as &$calendarId) {
@@ -60,7 +56,7 @@ trait EventModuleTrait
             $t = CalendarModel::getTable();
             $otherCalendars = CalendarModel::findBy(
                 ["($t.id = ? OR $t.master = ?)", "$t.id != ?"],
-                [$searchId, $searchId, (int) $calendar->id]
+                [$searchId, $searchId, (int) $calendar->id],
             );
 
             // Check if calendars have been found
