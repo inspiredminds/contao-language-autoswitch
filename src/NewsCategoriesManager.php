@@ -9,33 +9,32 @@ declare(strict_types=1);
 namespace InspiredMinds\ContaoLanguageAutoswitch;
 
 use Codefog\NewsCategoriesBundle\Model\NewsCategoryModel;
-use Codefog\NewsCategoriesBundle\NewsCategoriesManager as NewsCategoriesBundleNewsCategoriesManager;
+use Codefog\NewsCategoriesBundle\NewsCategoriesManager as CodefogNewsCategoriesManager;
 use Contao\CoreBundle\Framework\ContaoFramework;
 use Contao\PageModel;
-use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Contracts\Translation\LocaleAwareInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Terminal42\ChangeLanguage\PageFinder;
 
-class NewsCategoriesManager extends NewsCategoriesBundleNewsCategoriesManager
+class NewsCategoriesManager extends CodefogNewsCategoriesManager
 {
     public function __construct(
+        private readonly CodefogNewsCategoriesManager $inner,
         private readonly PageFinder $pageFinder,
-        private readonly RequestStack $requestStack,
+        /**
+         * @var TranslatorInterface&LocaleAwareInterface $translator
+         */
+        private readonly TranslatorInterface $translator,
         protected ContaoFramework|null $framework,
     ) {
     }
 
     public function getTargetPage(NewsCategoryModel $category): PageModel|null
     {
-        if (!$targetPage = parent::getTargetPage($category)) {
-            return $targetPage;
+        if (!$targetPage = $this->inner->getTargetPage($category)) {
+            return null;
         }
 
-        $request = $this->requestStack->getCurrentRequest();
-
-        if ($request && ($otherPage = $this->pageFinder->findAssociatedForLanguage($targetPage, $request->getLocale()))) {
-            return $otherPage;
-        }
-
-        return $targetPage;
+        return $this->pageFinder->findAssociatedForLanguage($targetPage, $this->translator->getLocale());
     }
 }
