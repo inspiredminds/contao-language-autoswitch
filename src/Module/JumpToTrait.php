@@ -37,9 +37,13 @@ trait JumpToTrait
         }
 
         // get associated page for language
-        if ($otherPage = $pageFinder->findAssociatedForLanguage($target, $currentLang)) {
-            $this->objModel->{$field} = $otherPage->id;
-            $this->{$field} = $otherPage->id;
+        try {
+            if ($otherPage = $pageFinder->findAssociatedForLanguage($target, $currentLang)) {
+                $this->objModel->{$field} = $otherPage->id;
+                $this->{$field} = $otherPage->id;
+            }
+        } catch (\Throwable) {
+            // noop
         }
     }
 }

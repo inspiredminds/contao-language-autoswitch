@@ -12,8 +12,7 @@ use Codefog\NewsCategoriesBundle\Model\NewsCategoryModel;
 use Codefog\NewsCategoriesBundle\NewsCategoriesManager as CodefogNewsCategoriesManager;
 use Contao\CoreBundle\Framework\ContaoFramework;
 use Contao\PageModel;
-use Symfony\Contracts\Translation\LocaleAwareInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Terminal42\ChangeLanguage\PageFinder;
 
 class NewsCategoriesManager extends CodefogNewsCategoriesManager
@@ -21,10 +20,7 @@ class NewsCategoriesManager extends CodefogNewsCategoriesManager
     public function __construct(
         private readonly CodefogNewsCategoriesManager $inner,
         private readonly PageFinder $pageFinder,
-        /**
-         * @var TranslatorInterface&LocaleAwareInterface $translator
-         */
-        private readonly TranslatorInterface $translator,
+        private readonly RequestStack $requestStack,
         protected ContaoFramework|null $framework,
     ) {
     }
@@ -35,6 +31,14 @@ class NewsCategoriesManager extends CodefogNewsCategoriesManager
             return null;
         }
 
-        return $this->pageFinder->findAssociatedForLanguage($targetPage, $this->translator->getLocale());
+        if (!$request = $this->requestStack->getCurrentRequest()) {
+            return $targetPage;
+        }
+
+        try {
+            return $this->pageFinder->findAssociatedForLanguage($targetPage, $request->getLocale());
+        } catch (\Throwable) {
+            return $targetPage;
+        }
     }
 }

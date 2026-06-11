@@ -32,8 +32,12 @@ class NavigationModule extends ModuleNavigation
 
         $pageFinder = new PageFinder();
 
-        if ($otherPage = $pageFinder->findAssociatedForLanguage($rootPage, $currentLang)) {
-            $this->rootPage = $otherPage->id;
+        try {
+            if ($otherPage = $pageFinder->findAssociatedForLanguage($rootPage, $currentLang)) {
+                $this->rootPage = $otherPage->id;
+            }
+        } catch (\Throwable) {
+            // noop
         }
 
         return parent::generate();

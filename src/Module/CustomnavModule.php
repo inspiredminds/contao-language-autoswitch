@@ -31,7 +31,7 @@ class CustomnavModule extends ModuleCustomnav
         // get the page finder
         $pageFinder = new PageFinder();
 
-        foreach ($pages as &$pageId) {
+        foreach ($pages as $index => $pageId) {
             // load the page
             $page = PageModel::findWithDetails($pageId);
 
@@ -41,8 +41,12 @@ class CustomnavModule extends ModuleCustomnav
             }
 
             // find pendant in current language
-            if ($otherPage = $pageFinder->findAssociatedForLanguage($page, $currentLang)) {
-                $pageId = $otherPage->id;
+            try {
+                if ($otherPage = $pageFinder->findAssociatedForLanguage($page, $currentLang)) {
+                    $pages[$index] = $otherPage->id;
+                }
+            } catch (\Throwable) {
+                // noop
             }
         }
 
